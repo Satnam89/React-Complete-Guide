@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import './App.css';
+import classes from './App.css';
 import Persons from './Person/Person';
+import ErrorBoundry from './ErrorBoundry/ErrorBoundry';
 
 class App extends Component {
 
@@ -19,7 +20,6 @@ deletePersonHandler = (personIndex) =>{
   persons.splice(personIndex,1);
   this.setState({persons: persons})
 }
-
 
 nameChangedHandler =(event, id)=> {
     const personIndex=this.state.persons.findIndex((p)=>{
@@ -42,20 +42,13 @@ togglePersonsHandler= ()=>{
 
   render() {
 
-    let classes=[];
+    let assignedClasses=[];
+    let btnClass='';
     if(this.state.persons.length <=2){
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if(this.state.persons.length <=1){
-      classes.push('bold');
-    }
-
-    const style1={
-      backgroundColor:'green',
-      font:'inherit',
-      border:'1px solid green',
-      padding:'8px',
-      cursor:'pointer'
+      assignedClasses.push(classes.bold);
     }
 
     let persons=null;
@@ -64,23 +57,23 @@ togglePersonsHandler= ()=>{
         <div>
           {this.state.persons.map(
             (person,index) =>{
-              return <Persons 
-                click={() => this.deletePersonHandler(index) }
-                name={person.name} 
-                age={person.age}
-                key={person.id}
-                changed={(event)=> this.nameChangedHandler(event, person.id)}/>
+              return <ErrorBoundry key={person.id}>
+                  <Persons 
+                  click={() => this.deletePersonHandler(index) }
+                  name={person.name} 
+                  age={person.age}
+                  changed={(event)=> this.nameChangedHandler(event, person.id)}/>
+                </ErrorBoundry>
             })}
         </div> )
-        style1.backgroundColor='red';
+        btnClass=classes.Red;
     }
 
   return (
-            <div className="App">
+            <div className={classes.App}>
               <h1>Hi, i am a React App</h1>
-              <p className={classes.join(' ')}>This is working fine</p>
-              <button 
-                style={style1}
+              <p className={assignedClasses.join(' ')}>This is working fine</p>
+              <button className={btnClass}
                 onClick={this.togglePersonsHandler}> Toggle Persons </button>
               {persons}
             </div>  
