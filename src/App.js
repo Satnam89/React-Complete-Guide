@@ -9,7 +9,7 @@ class App extends Component {
   persons: [
       { id: 1,name: 'Satnam Singh', age: 25 },
       { id:2,name:'Maninder Singh',age :26},
-      { id:3,name:'Manjeet Singh',age :267}
+      { id:3,name:'Manjeet Singh',age :26}
      ],
      showPersons:false
 }
@@ -36,10 +36,9 @@ nameChangedHandler =(event, id)=> {
     this.setState({persons:persons})
   }
 togglePersonsHandler= ()=>{
-  const doesShow=this.state.showPersons;
-  this.setState({showPersons:!doesShow});
+    const doesShow=this.state.showPersons;
+    this.setState({showPersons:!doesShow});
 }
-
 
   render() {
 
@@ -77,15 +76,14 @@ togglePersonsHandler= ()=>{
     }
 
   return (
-          <div className="App">
-            <h1>Hi, i am a React App</h1>
-            <p className={classes.join(' ')}>This is working fine</p>
-            <button 
-              style={style1}
-              onClick={this.togglePersonsHandler}> Toggle Persons </button>
-            {persons}
-          </div>
-         
+            <div className="App">
+              <h1>Hi, i am a React App</h1>
+              <p className={classes.join(' ')}>This is working fine</p>
+              <button 
+                style={style1}
+                onClick={this.togglePersonsHandler}> Toggle Persons </button>
+              {persons}
+            </div>  
         );
     //return React.createElement('div',{className:'App'},React.createElement('h1',null,'Hi i am a react App'));
   }
